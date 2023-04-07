@@ -1,0 +1,215 @@
+.setup-board {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+}
+
+.docks {
+	width: 160px;
+	aspect-ratio: 1 / 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	/* background-color: var(--color-secondary); */
+}
+
+.game-board {
+	position: relative;
+	background-color: var(--color-primary);
+	margin: 0.5rem 1.5rem;
+}
+
+.board-grid {
+	--edge-length: 30px;
+	--major-line-width: 4px;
+
+	position: relative;
+	width: fit-content;
+	aspect-ratio: 1 / 1;
+	display: grid;
+	grid-template-columns: repeat(10, var(--edge-length));
+	grid-template-rows: repeat(10, var(--edge-length));
+	border: 2px solid rgb(0, 0, 0);
+}
+
+.board-grid-cell {
+	background-color: var(--color-primary);
+	border: 1px solid var(--color-secondary);
+}
+
+.board-grid-cell:hover {
+	background-color: var(--color-secondary);
+}
+
+.board-grid::before,
+.board-grid::after {
+	content: "";
+	position: absolute;
+	background-color: var(--color-secondary);
+	z-index: 2;
+}
+
+.board-grid::before {
+	top: 0;
+	bottom: 0;
+	left: calc(50% - var(--major-line-width) / 2);
+	width: var(--major-line-width);
+}
+
+.board-grid::after {
+	top: calc(50% - var(--major-line-width) / 2);
+	left: 0;
+	right: 0;
+	height: var(--major-line-width);
+}
+
+.board-grid-cell:nth-child(10n + 1) {
+	border-left: none;
+}
+
+.board-grid-cell:nth-child(10n) {
+	border-right: none;
+}
+
+.board-grid-cell:nth-child(-n + 10) {
+	border-top: none;
+}
+
+.board-grid-cell:nth-child(n + 91) {
+	border-bottom: none;
+}
+
+.board-grid-cell.miss,
+.board-grid-cell.miss:hover {
+	background-color: var(--color-secondary);
+}
+
+.board-grid-cell.miss,
+.board-grid-cell.hit {
+	animation: glow 4s ease-in-out;
+}
+
+.board-grid-cell.hit,
+.board-grid-cell.hit:hover {
+	background-color: var(--color-background);
+}
+
+.grid-letters {
+	height: var(--edge-length);
+	position: absolute;
+	top: calc(-1 * var(--edge-length));
+	display: grid;
+	grid-template-columns: repeat(10, var(--edge-length));
+	place-items: center;
+}
+
+.grid-numbers {
+	position: absolute;
+	left: calc(-1 * var(--edge-length));
+	display: grid;
+	grid-template-rows: repeat(10, var(--edge-length));
+	place-items: center;
+}
+
+.board-grid-letter,
+.board-grid-number {
+	pointer-events: none;
+	cursor: default;
+}
+
+@keyframes glow {
+	0% {
+		z-index: 0;
+		box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.4),
+			inset 0px 0px 10px 0px rgba(0, 0, 0, 0.4);
+	}
+
+	50% {
+		z-index: 1;
+		box-shadow: 0px 0px 50px 15px rgba(0, 0, 0.6),
+			inset 0px 0px 10px 8px rgba(0, 0, 0.6);
+	}
+
+	100% {
+		z-index: 0;
+		box-shadow: 0px 00px 50px 0px rgba(0, 0, 0, 0.4),
+			inset 0px 0px 10px 0px rgba(0, 0, 0, 0.4);
+	}
+}
+
+.ship {
+	--edge-length: 30px;
+
+	z-index: 2;
+	background-size: 100% 100%;
+}
+
+.attack-board .ship {
+	pointer-events: none;
+}
+
+.ship.dragged {
+	opacity: 0.5;
+}
+
+.ship.selected {
+	border: 2px solid limegreen;
+}
+
+.ship.horizontal {
+	height: var(--edge-length);
+	width: calc(var(--edge-length) * var(--size));
+}
+
+.ship.vertical {
+	width: var(--edge-length);
+	height: calc(var(--edge-length) * var(--size));
+}
+
+.play-board {
+	display: flex;
+}
+
+.play-board > * {
+	flex-basis: 50%;
+}
+
+.attack-board-container {
+	display: grid;
+	place-items: center;
+}
+
+.attack-board {
+	position: relative;
+}
+
+.waiting-board {
+	display: grid;
+	place-items: center;
+}
+
+.waiting-board-controls {
+	margin: 2rem 0 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 20px;
+}
+
+.setup-board-controls {
+	margin: 2rem 0 0;
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+}
+
+.finish-game {
+	margin: 2rem 0 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+}
